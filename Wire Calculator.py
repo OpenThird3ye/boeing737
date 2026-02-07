@@ -2,6 +2,8 @@
 This software is not affliated with The Boeing Aircraft Company.
 creator: openthird3ye
 REV_  01/31/2024
+REV_01 09/30/2025 Added Aloft in title
+REV_02 02/07/2026 Fixed arc length calculations for stringers 18-28
 '''
 
 import math
@@ -24,6 +26,8 @@ ybl = 0
 def selection_acfttype(event):
     selectionType = acfttypeDp.get()
     print("Aircraft Selected ", selectionType)
+
+
 #    messagebox.showinfo(
 #        title="Aircraft Type",
 #        message=f"Selection: {selectionType}"
@@ -33,6 +37,8 @@ def selection_acfttype(event):
 def selection_changedfwd(event):
     selectionfwd = stafwd.get()
     print("STA FWD: ", selectionfwd)
+
+
 #    messagebox.showinfo(
 #        title="Check FWD",
 #        message=f"Selection: {selectionfwd}"
@@ -42,6 +48,8 @@ def selection_changedfwd(event):
 def selection_changedaft(event):
     selectionaft = staaft.get()
     print("STA AFT: ", selectionaft)
+
+
 #    messagebox.showinfo(
 #        title="Check AFT",
 #        message=f"Selection: {selectionaft}"
@@ -52,6 +60,8 @@ def selection_changedaft(event):
 def selection_strStart(event):
     selectionstrStart = strStart.get()
     print("STR Start: ", selectionstrStart)
+
+
 #    messagebox.showinfo(
 #        title="BL",
 #        message=f"Selection: {selectionstrStart}"
@@ -62,6 +72,8 @@ def selection_strStart(event):
 def selection_strEnd(event):
     selectionstrEnd = strEnd.get()
     print("STR AFT: ", selectionstrEnd)
+
+
 #    messagebox.showinfo(
 #        title="BL",
 #        message=f"Selection: {selectionstrEnd}"
@@ -75,17 +87,17 @@ def submitButton():
     valueStaaft = staaft.get()
     valueStrStart = strStart.get()
     valueStrEnd = strEnd.get()
-#    valuewlSliderStart = int(wlSliderStart.get())
-#    valueSliderEnd = int(wlSliderEnd.get())
+    #    valuewlSliderStart = int(wlSliderStart.get())
+    #    valueSliderEnd = int(wlSliderEnd.get())
     valueOverage = int(overPercent.get())
     crossVar = cross.get()
     valueBlStart = BlStart.get()
     valueBlEnd = BlEnd.get()
 
-#    print(valueAcftType, valueStaaft, valueStafwd, valueStrEnd, valueStrStart, valueBlEnd, valuewlSliderStart,
-#          valueSliderEnd, valueOverage, crossVar, valueBlStart)
+    #    print(valueAcftType, valueStaaft, valueStafwd, valueStrEnd, valueStrStart, valueBlEnd, valuewlSliderStart,
+    #          valueSliderEnd, valueOverage, crossVar, valueBlStart)
 
-# 737-700 and FWD Sta Value
+    # 737-700 and FWD Sta Value
     if (valueAcftType == "737-700") and (valueStafwd == "130"):
         xsta = 130
     elif (valueAcftType == "737-700") and (valueStafwd == "178"):
@@ -239,8 +251,7 @@ def submitButton():
     elif (valueAcftType == "737-700") and (valueStafwd == "1217"):
         xsta = 1397
 
-
-# 737-700 and Aft Sta Value
+    # 737-700 and Aft Sta Value
     if (valueAcftType == "737-700") and (valueStaaft == "130"):
         ysta = 130
     elif (valueAcftType == "737-700") and (valueStaaft == "178"):
@@ -394,8 +405,7 @@ def submitButton():
     elif (valueAcftType == "737-700") and (valueStaaft == "1217"):
         ysta = 1397
 
-
-# 737-800 and FWD Sta Value
+    # 737-800 and FWD Sta Value
     if (valueAcftType == "737-800") and (valueStafwd == "130"):
         xsta = 130
     elif (valueAcftType == "737-800") and (valueStafwd == "178"):
@@ -541,8 +551,7 @@ def submitButton():
     elif (valueAcftType == "737-800") and (valueStafwd == "1217"):
         xsta = 1627
 
-
-# 737-800 and AFT Sta Value
+    # 737-800 and AFT Sta Value
     if (valueAcftType == "737-800") and (valueStaaft == "130"):
         ysta = 130
     elif (valueAcftType == "737-800") and (valueStaaft == "178"):
@@ -688,8 +697,13 @@ def submitButton():
     elif (valueAcftType == "737-800") and (valueStaaft == "1217"):
         ysta = 1627
 
-# FWD STR Value
-    if valueStrStart == "1":
+    # FWD STR Value - Initialize angle for arc calculation
+    fangle = 0
+    if valueStrStart == "0":
+        xstr = 0
+        xbl = 0
+        fangle = 0
+    elif valueStrStart == "1":
         xstr = 306.5
         xbl = 0
         fangle = 0
@@ -760,36 +774,55 @@ def submitButton():
     elif valueStrStart == "18":
         xstr = 198.2
         xbl = 68.4
+        fangle = 95.625
     elif valueStrStart == "19":
         xstr = 190.3
         xbl = 65.5
+        fangle = 101.25
     elif valueStrStart == "20":
         xstr = 182.9
         xbl = 61.7
+        fangle = 106.875
     elif valueStrStart == "21":
         xstr = 175.9
         xbl = 57.0
+        fangle = 112.5
     elif valueStrStart == "22":
         xstr = 169.6
         xbl = 51.5
+        fangle = 118.125
     elif valueStrStart == "23":
         xstr = 164.1
         xbl = 45.3
+        fangle = 123.75
     elif valueStrStart == "24":
         xstr = 159.2
         xbl = 38.5
+        fangle = 129.375
     elif valueStrStart == "25":
         xstr = 155.3
         xbl = 31.1
+        fangle = 135
     elif valueStrStart == "26":
         xstr = 152.2
         xbl = 23.3
+        fangle = 140.625
+    elif valueStrStart == "27":
+        xstr = 150.3
+        xbl = 15.1
+        fangle = 146.25
     elif valueStrStart == "28":
         xstr = 148.8
         xbl = 6.5
+        fangle = 151.875
 
-# AFT STR Value
-    if valueStrEnd == "1":
+    # AFT STR Value - Initialize angle for arc calculation
+    aangle = 0
+    if valueStrEnd == "0":
+        ystr = 0
+        ybl = 0
+        aangle = 0
+    elif valueStrEnd == "1":
         ystr = 306.5
         ybl = 0
         aangle = 0
@@ -860,33 +893,47 @@ def submitButton():
     elif valueStrEnd == "18":
         ystr = 198.2
         ybl = 68.4
+        aangle = 95.625
     elif valueStrEnd == "19":
         ystr = 190.3
         ybl = 65.5
+        aangle = 101.25
     elif valueStrEnd == "20":
         ystr = 182.9
         ybl = 61.7
+        aangle = 106.875
     elif valueStrEnd == "21":
         ystr = 175.9
         ybl = 57.0
+        aangle = 112.5
     elif valueStrEnd == "22":
         ystr = 169.6
         ybl = 51.5
+        aangle = 118.125
     elif valueStrEnd == "23":
         ystr = 164.1
         ybl = 45.3
+        aangle = 123.75
     elif valueStrEnd == "24":
         ystr = 159.2
         ybl = 38.5
+        aangle = 129.375
     elif valueStrEnd == "25":
         ystr = 155.3
         ybl = 31.1
+        aangle = 135
     elif valueStrEnd == "26":
         ystr = 152.2
         ybl = 23.3
+        aangle = 140.625
+    elif valueStrEnd == "27":
+        ystr = 150.3
+        ybl = 15.1
+        aangle = 146.25
     elif valueStrEnd == "28":
         ystr = 148.8
         ybl = 6.59
+        aangle = 151.875
 
     print("X Sta= ", xsta)
     print("y Sta= ", ysta)
@@ -894,9 +941,11 @@ def submitButton():
     print("y Str= ", ystr)
     print("x BL= ", xbl)
     print("y BL= ", ybl)
+    print("fangle= ", fangle)
+    print("aangle= ", aangle)
     print("cross= ", crossVar)
 
-#Set Station
+    # Set Station distance
     if xsta > ysta:
         zsta = xsta - ysta
     elif ysta > xsta:
@@ -904,7 +953,7 @@ def submitButton():
     elif xsta == ysta:
         zsta = 0
 
-#Set Bl Side (Left or Right) if Moving from Side to Side add value.
+    # Set Bl Side (Left or Right) if Moving from Side to Side add crossover distance.
     if (valueBlStart == 0) and (valueBlEnd == 0):
         zvalueBl = 0
     elif (valueBlStart == 1) and (valueBlEnd == 0):
@@ -914,46 +963,29 @@ def submitButton():
     elif (valueBlStart == 1) and (valueBlEnd == 1):
         zvalueBl = 0
 
-    xbl = ((2*(math.pi))*74)*(fangle/360)
-    ybl = ((2*(math.pi))*74)*(aangle/360)
+    # Calculate arc length based on the angle difference
+    # Use the absolute difference in angles to get the arc traveled
+    angle_diff = abs(fangle - aangle)
 
-    # Set Station
-    if xbl > ybl:
-        zbl = xbl - ybl
-        xbl = 0
-        ybl = 0
-    elif ybl > xbl:
-        zbl = ybl - xbl
-        xbl = 0
-        ybl = 0
-    elif xbl == ybl:
-        zbl = 0
-        xbl = 0
-        ybl = 0
-    elif (xbl == ybl) and (valueBlStart == valueBlEnd):
-        ybl = ybl
-        xbl = xbl
-        zbl = 0
+    # Calculate the arc length using the angle difference and radius of 74 inches
+    arc_length = ((2 * math.pi) * 74) * (angle_diff / 360)
 
-    total = (zsta + zvalueBl + xbl + ybl + zbl + crossVar) / (1-(valueOverage/100))
+    print("Angle difference: ", angle_diff)
+    print("Arc length: ", arc_length)
+
+    # Total calculation
+    total = (zsta + zvalueBl + arc_length + crossVar) / (1 - (valueOverage / 100))
     print("Total: ", total)
     total = round(total, 0)
-    totallabel["text"]= total
-
-'''
-    if xstr > ystr:
-        zstr = (xstr - ystr) * 1.20
-    elif ystr > xstr:
-        zstr = (ystr - xstr) * 1.20
-    else: zstr = 0
-'''
+    totallabel["text"] = total
 
 
 root = ttkb.Window(themename="superhero")
 # root = Tk()
 
 
-root.title("Wire Calculator")
+root.title("Tripod Aerospace 737 Wire Calculator")
+'''icon_image = PhotoImage(file="download.png")'''
 root.geometry('740x700')
 cross = IntVar()
 BlStart = IntVar()
@@ -1025,7 +1057,8 @@ strStartLabel = ttkb.Label(root, text="Left Side")
 strStartLabel.grid(row=2, column=3)
 
 # Str Start RH or LH
-strStartCheckBox = ttkb.Checkbutton(root, text="Right Side", state="selected", style="roundToggle", offvalue=0, onvalue=1, variable=BlStart)
+strStartCheckBox = ttkb.Checkbutton(root, text="Right Side", state="selected", style="roundToggle", offvalue=0,
+                                    onvalue=1, variable=BlStart)
 strStartCheckBox.grid(row=2, column=4)
 
 # Str End Combobox
@@ -1044,10 +1077,10 @@ strEndLabel.grid(row=3, column=3)
 strEndCheckBox = ttkb.Checkbutton(root, text="Right Side", style="roundToggle", offvalue=0, onvalue=1, variable=BlEnd)
 strEndCheckBox.grid(row=3, column=4)
 
-
-#Crossover Checkbox
-crossCheckBox = ttkb.Checkbutton(root, text="Include Crossover?", style="roundToggle", offvalue=1, onvalue=72, variable=cross)
-crossCheckBox.grid(row=12, column=2, pady= 10)
+# Crossover Checkbox
+crossCheckBox = ttkb.Checkbutton(root, text="Include Crossover?", style="roundToggle", offvalue=1, onvalue=72,
+                                 variable=cross)
+crossCheckBox.grid(row=12, column=2, pady=10)
 
 overPercentLabel = ttkb.Label(root, text="Overage %")
 overPercentLabel.grid(row=14, column=1)
@@ -1058,13 +1091,12 @@ overPercent.insert(0, 15)
 
 overPercent.grid(row=14, column=2, pady=20)
 
-#submit button
+# submit button
 submitButton = ttkb.Button(bootstyle="success", text="Calculate", command=submitButton)
 submitButton.grid(row=15, column=2)
 
-#total label
-totallabel = ttkb.Label(root, text="Total(in)", justify= 'left')
-totallabel.grid(row=17, column=2, pady= 20)
-
+# total label
+totallabel = ttkb.Label(root, text="Total(in)", justify='left')
+totallabel.grid(row=17, column=2, pady=20)
 
 root.mainloop()
